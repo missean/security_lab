@@ -61,6 +61,13 @@ function displayContributions1(req,res,next,sts,err,data)
 
 function handleContributionsUpdate(req,res,next)
 {
+	if (!(isNumber(req.body.preTax)) || !(isNumber(req.body.preTax)) || !(isNumber(req.body.preTax)) ) {
+      return res.render("contributions", {
+			updateError: "DON'T TRY TO HACK",
+				  userId: userId
+			 });
+    }
+
    // convert to numbers
    var preTax = eval(req.body.preTax);
    var afterTax = eval(req.body.afterTax);
@@ -72,13 +79,6 @@ function handleContributionsUpdate(req,res,next)
    if (isNaN(preTax) || isNaN(afterTax) || isNaN(roth) || preTax < 0 || afterTax < 0 || roth < 0) {
       return res.render("contributions", {
 			updateError: "Invalid contribution percentages",
-				  userId: userId
-			 });
-    }
-
-   if (!(isNumber(preTax)) || !(isNumber(afterTax)) || !(isNumber(roth)) ) {
-      return res.render("contributions", {
-			updateError: "DON'T TRY TO HACK",
 				  userId: userId
 			 });
     }
