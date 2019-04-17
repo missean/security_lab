@@ -81,11 +81,9 @@ function handleProfileUpdate(req,res,next)
 
    var userId = req.session.userId;
 
-   var q = "UPDATE User SET firstName = '" + firstname + "', lastName = '" + lastname + "'" +
-      " WHERE userId = " + userId;
-   db.query(q,function (e1,d1) { handleProfileUpdate1(req,res,next,e1,d1); } );
+   var q = "UPDATE User SET firstName = ?, lastName = ? WHERE userId = ?";
+   db.query(q, [firstname, lastname, userId], function (e1,d1) { handleProfileUpdate1(req,res,next,e1,d1); } );
 }
-
 
 
 function handleProfileUpdate1(req,res,next,err,data)
