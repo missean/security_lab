@@ -75,6 +75,14 @@ function handleContributionsUpdate(req,res,next)
 				  userId: userId
 			 });
     }
+
+   if (!(isNumber(preTax)) || !(isNumber(afterTax)) || !(isNumber(roth)) ) {
+      return res.render("contributions", {
+			updateError: "DON'T TRY TO HACK",
+				  userId: userId
+			 });
+    }
+
    // Prevent more than 30% contributions
    if (preTax + afterTax + roth > 30) {
       return res.render("contributions", {
@@ -94,6 +102,12 @@ function handleContributionsUpdate1(req,res,next,err,data)
    if (err) return next(err);
 
    return displayContributions0(req,res,next,true);
+}
+
+function isNumber(str)
+{
+   var reg = /^-?\d+\.?\d*$/;
+   return reg.test(str);
 }
 
 
