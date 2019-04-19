@@ -20,6 +20,7 @@ var db = require("./database.js");
 function addMemos(req,res,next)
 {
    var memo = encodeURI(req.body.memo);
+   console.log(memo);
 
    var q = "INSERT INTO Memos(memo) VALUES ( '" + memo + "' )";
    db.query(q,function(e1,d1) { addMemos1(req,res,next,e1,d1); });
